@@ -1,0 +1,440 @@
+#TMSH-VERSION: 12.1.0
+
+cm cert /Common/dtca-bundle.crt {
+    cache-path /config/filestore/files_d/Common_d/trust_certificate_d/:Common:dtca-bundle.crt_36339_4
+    checksum SHA1:1302:76407e7066e349ce2a08b2b8c0cb96ddb7d1f70d
+    revision 4
+}
+cm cert /Common/dtca.crt {
+    cache-path /config/filestore/files_d/Common_d/trust_certificate_d/:Common:dtca.crt_36335_4
+    checksum SHA1:1302:76407e7066e349ce2a08b2b8c0cb96ddb7d1f70d
+    revision 4
+}
+cm cert /Common/dtdi.crt {
+    cache-path /config/filestore/files_d/Common_d/trust_certificate_d/:Common:dtdi.crt_36331_4
+    checksum SHA1:1273:2d6bf84cf30a803a025f49e47d3ed4b3df478648
+    revision 4
+}
+cm device /Common/F5-Classifier.com {
+    active-modules { "BR-VE, 5G|GWRXEJG-BIDAJQJ|Rate Shaping|SDN Services, VE|Routing Bundle, VE|AFM, VE|Max Compression, VE|Acceleration Manager, VE|Crytpo Offload, VE, Tier 2 (1G - 10G)|BIG-IP VE, Multicast Routing|Advanced Protocols, VE|DNS-GTM, Base, 5Gbps|SSL, VE|DNSSEC|Anti-Virus Checks|Base Endpoint Security Checks|Firewall Checks|Network Access|Secure Virtual Keyboard|APM, Web Application|Machine Certificate Checks|Protected Workspace|Remote Desktop|App Tunnel|GTM Licensed Objects, Unlimited|DNS Licensed Objects, Unlimited|DNS Rate Fallback, 250K|GTM Rate Fallback, 250K|GTM Rate, 250K|DNS Rate Limit, 250K QPS|PSM, VE|CGN, BIG-IP VE, AFM ONLY" }
+    base-mac de:ad:be:ef:03:01
+    build 1.19.1447
+    cert /Common/dtdi.crt
+    chassis-id 00000000-0000-0000-000000000000
+    edition "Engineering Hotfix HF1"
+    hostname F5-Classifier.com
+    key /Common/dtdi.key
+    management-ip 192.168.1.248
+    marketing-name "BIG-IP Virtual Edition"
+    optional-modules { "App Mode (TMSH Only, No Root/Bash)" "Better to Best Bundle Upgrade, 5Gbps" "Better, 5 Gbps -10 Gbps Upgrade" "DNS and GTM (250 QPS), VE" "External Interface and Network HSM, VE" "IPI Subscription, 1Yr, VE" "IPI Subscription, 3Yr, VE" "PEM URL Filtering, Subscription, 1Yr, 1G, 3G, 5G" "PEM URL Filtering, Subscription, 3Yr, 1G, 3G, 5G" "PEM, ADD-VE, 5G" "PEM, Quota Management, VE" "SSL, Forward Proxy, VE" "SWG Subscription, 1Yr, VE" "SWG Subscription, 3Yr, VE" "URL Filtering Subscription, 1Yr, VE" "URL Filtering Subscription, 3Yr, VE" }
+    platform-id Z100
+    product BIG-IP
+    self-device true
+    time-zone America/Los_Angeles
+    version 12.1.0
+}
+cm device-group /Common/device_trust_group {
+    auto-sync enabled
+    devices {
+        /Common/F5-Classifier.com { }
+    }
+    hidden true
+    network-failover disabled
+}
+cm device-group /Common/gtm {
+    devices {
+        /Common/F5-Classifier.com { }
+    }
+    hidden true
+    network-failover disabled
+}
+cm key /Common/dtca.key {
+    cache-path /config/filestore/files_d/Common_d/trust_certificate_key_d/:Common:dtca.key_36337_4
+    checksum SHA1:1704:7c02ea707f53eb11fa2b74bd2d190f83a91ab548
+    revision 4
+}
+cm key /Common/dtdi.key {
+    cache-path /config/filestore/files_d/Common_d/trust_certificate_key_d/:Common:dtdi.key_36333_4
+    checksum SHA1:1704:3017d0552e09986ac00d62230b21874d4245063b
+    revision 4
+}
+cm traffic-group /Common/traffic-group-1 {
+    unit-id 1
+}
+cm traffic-group /Common/traffic-group-local-only { }
+cm trust-domain /Common/Root {
+    ca-cert /Common/dtca.crt
+    ca-cert-bundle /Common/dtca-bundle.crt
+    ca-devices { /Common/F5-Classifier.com }
+    ca-key /Common/dtca.key
+    guid 61427649-ab5d-4713-b07ddeadbeef0301
+    status standalone
+    trust-group /Common/device_trust_group
+}
+ltm global-settings general {
+    share-single-mac vmw-compat
+}
+ltm global-settings traffic-control {
+    accept-ip-options enabled
+}
+net arp /Common/web-server {
+    ip-address 172.16.60.101
+    mac-address de:ad:be:ef:01:05
+}
+net interface 1.1 {
+    flow-control none
+    lldp-tlvmap 114552
+    media-fixed 10000T-FD
+}
+net interface 1.2 {
+    flow-control none
+    lldp-tlvmap 114552
+    media-fixed 10000T-FD
+}
+net interface 1.3 {
+    media-fixed 10000T-FD
+}
+net interface mgmt {
+    lldp-admin disable
+}
+net route-domain /Common/0 {
+    id 0
+    strict disabled
+    vlans {
+        /Common/http-tunnel
+        /Common/socks-tunnel
+        /Common/external
+        /Common/Gi-LAN
+        /Common/latest
+        /Common/web-server
+    }
+}
+net self /Common/client-facing {
+    address 172.16.40.100/24
+    allow-service all
+    traffic-group /Common/traffic-group-local-only
+    vlan /Common/external
+}
+net self /Common/Gi-NET {
+    address 172.16.20.200/24
+    allow-service all
+    traffic-group /Common/traffic-group-local-only
+    vlan /Common/Gi-LAN
+}
+net self /Common/overlay2 {
+    address 172.16.50.5/24
+    traffic-group /Common/traffic-group-local-only
+    vlan /Common/latest
+}
+net self /Common/ext-net {
+    address 172.16.60.100/24
+    allow-service all
+    traffic-group /Common/traffic-group-local-only
+    vlan /Common/web-server
+}
+net self-allow {
+    defaults {
+        igmp:0
+        ospf:0
+        pim:0
+        tcp:161
+        tcp:22
+        tcp:4353
+        tcp:443
+        tcp:53
+        udp:1026
+        udp:161
+        udp:4353
+        udp:520
+        udp:53
+    }
+}
+net stp /Common/cist {
+    interfaces {
+        1.1 {
+            external-path-cost 2000
+            internal-path-cost 2000
+        }
+        1.2 {
+            external-path-cost 2000
+            internal-path-cost 2000
+        }
+        1.3 {
+            external-path-cost 2000
+            internal-path-cost 2000
+        }
+    }
+    vlans {
+        /Common/Gi-LAN
+        /Common/external
+        /Common/web-server
+    }
+}
+net vlan /Common/Gi-LAN {
+    interfaces {
+        1.2 { }
+    }
+    tag 4094
+}
+net vlan /Common/external {
+    interfaces {
+        1.1 { }
+    }
+    tag 4093
+}
+net vlan /Common/web-server {
+    interfaces {
+        1.3 { }
+    }
+    tag 4092
+}
+net fdb tunnel /Common/http-tunnel { }
+net fdb tunnel /Common/latest {
+    records {
+        ec:f4:bb:d7:85:12 {
+            endpoint 172.16.20.5
+        }
+    }
+}
+net fdb tunnel /Common/socks-tunnel { }
+net fdb vlan /Common/Gi-LAN { }
+net fdb vlan /Common/external { }
+net fdb vlan /Common/web-server { }
+net tunnels tunnel /Common/http-tunnel {
+    description "Tunnel for http-explicit profile"
+    profile /Common/tcp-forward
+}
+net tunnels tunnel /Common/latest {
+    key ***scrubbed***
+    local-address 172.16.20.200
+    profile /Common/vxlan-gpe
+    remote-address any
+}
+net tunnels tunnel /Common/socks-tunnel {
+    description "Tunnel for socks profile"
+    profile /Common/tcp-forward
+}
+net tunnels vxlan /Common/new-nsh-vxlan-gpe {
+    app-service none
+    defaults-from /Common/vxlan-gpe
+    description none
+}
+net tunnels vxlan /Common/nsh_vxlan_gpe {
+    app-service none
+    defaults-from /Common/vxlan-gpe
+    description none
+    flooding-type none
+    port 6633
+}
+net tunnels vxlan /Common/test {
+    app-service none
+    defaults-from /Common/vxlan-gpe
+    description none
+    flooding-type multipoint
+    port 6633
+}
+net tunnels vxlan /Common/vxlan-gpe {
+    app-service none
+    defaults-from /Common/vxlan
+    description none
+    encapsulation-type vxlan-gpe
+    flooding-type multipoint
+    port 4790
+}
+net tunnels vxlan /Common/vxlan_nsh {
+    app-service none
+    defaults-from /Common/vxlan
+    description none
+    flooding-type none
+    port 6633
+}
+security firewall policy /Common/tun-use { }
+security firewall port-list /Common/_sys_self_allow_tcp_defaults {
+    ports {
+        22 { }
+        53 { }
+        161 { }
+        443 { }
+        1029-1043 { }
+        4353 { }
+    }
+}
+security firewall port-list /Common/_sys_self_allow_udp_defaults {
+    ports {
+        53 { }
+        161 { }
+        520 { }
+        1026 { }
+        4353 { }
+    }
+}
+security firewall rule-list /Common/_sys_self_allow_all {
+    rules {
+        _sys_allow_all {
+            action accept
+        }
+    }
+}
+security firewall rule-list /Common/_sys_self_allow_defaults {
+    rules {
+        _sys_allow_tcp_defaults {
+            action accept
+            ip-protocol tcp
+            destination {
+                port-lists {
+                    /Common/_sys_self_allow_tcp_defaults
+                }
+            }
+        }
+        _sys_allow_udp_defaults {
+            action accept
+            ip-protocol udp
+            destination {
+                port-lists {
+                    /Common/_sys_self_allow_udp_defaults
+                }
+            }
+        }
+        _sys_allow_ospf_defaults {
+            action accept
+            ip-protocol ospf
+        }
+        _sys_allow_pim_defaults {
+            action accept
+            ip-protocol pim
+        }
+        _sys_allow_igmp_defaults {
+            action accept
+            ip-protocol igmp
+        }
+    }
+}
+security firewall rule-list /Common/_sys_self_allow_management {
+    rules {
+        _sys_allow_ssh {
+            action accept
+            ip-protocol tcp
+            destination {
+                ports {
+                    22 { }
+                }
+            }
+        }
+        _sys_allow_web {
+            action accept
+            ip-protocol tcp
+            destination {
+                ports {
+                    443 { }
+                }
+            }
+        }
+    }
+}
+security ip-intelligence policy /Common/ip-intelligence { }
+sys feature-module cgnat {
+    enabled
+}
+sys folder / {
+    device-group none
+    hidden false
+    inherited-devicegroup false
+    inherited-traffic-group false
+    traffic-group /Common/traffic-group-1
+}
+sys folder /Common {
+    device-group none
+    hidden false
+    inherited-devicegroup true
+    inherited-traffic-group true
+    traffic-group /Common/traffic-group-1
+}
+sys folder /Common/Drafts {
+    device-group none
+    hidden false
+    inherited-devicegroup true
+    inherited-traffic-group true
+    traffic-group /Common/traffic-group-1
+}
+sys global-settings {
+    gui-setup disabled
+    hostname F5-Classifier.com
+    mgmt-dhcp disabled
+}
+sys httpd {
+    auth-pam-idle-timeout 12000000
+    auth-pam-validate-ip off
+}
+sys management-dhcp /Common/sys-mgmt-dhcp-config {
+    request-options { subnet-mask broadcast-address routers domain-name domain-name-servers host-name ntp-servers }
+}
+sys management-ip 192.168.1.248/24 {
+    description configured-statically
+}
+sys management-ovsdb {
+    ca-cert-file none
+    cert-file none
+    cert-key-file none
+    disabled
+    log-level info
+}
+sys management-route /Common/default {
+    description configured-statically
+    gateway 192.168.1.1
+    network default
+}
+sys provision afm {
+    level nominal
+}
+sys provision ltm {
+    level nominal
+}
+sys snmp {
+    agent-addresses { tcp6:161 udp6:161 }
+    communities {
+        /Common/comm-public {
+            community-name public
+            source default
+        }
+    }
+    disk-monitors {
+        /Common/root {
+            minspace 2000
+            path /
+        }
+        /Common/var {
+            minspace 10000
+            path /var
+        }
+    }
+    process-monitors {
+        /Common/bigd {
+            process bigd
+        }
+        /Common/chmand {
+            process chmand
+        }
+        /Common/httpd {
+            max-processes infinity
+            process httpd
+        }
+        /Common/mcpd {
+            process mcpd
+        }
+        /Common/sod {
+            process sod
+        }
+        /Common/tmm {
+            max-processes infinity
+            process tmm
+        }
+    }
+}
+sys daemon-log-settings tmm {
+    irule-log-level debug
+}
+sys fpga firmware-config {
+    type standard-balanced-fpga
+}
+sys sflow global-settings http { }
+sys sflow global-settings vlan { }

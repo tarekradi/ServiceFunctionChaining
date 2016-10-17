@@ -1,0 +1,657 @@
+#TMSH-VERSION: 12.1.0
+
+analytics gui-widget /Common/uwid56a7bfec1e0bc {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { events_count }
+    module asm
+    period 86400
+    username admin
+    view-by asm_repev_request_type
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7bfec2c215 {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { count drop_count total_count }
+    module dosl3
+    order-on-page 2
+    period 86400
+    username admin
+    view-by dosl3_action
+    widget-type 2
+}
+analytics gui-widget /Common/uwid56a7bfec2ecc7 {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { acl_matches }
+    module network
+    order-on-page 3
+    period 86400
+    username admin
+    view-by acl_enforced_rule
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bfec36e5a {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { count }
+    module dosl7
+    order-on-page 6
+    period 86400
+    username admin
+    view-by dosl7_attack_id
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bfec39a41 {
+    gui-pagecode _ov_summary
+    metrics { __ }
+    module _______xxx___
+    username admin
+    view-by __
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7bfec269ef {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { events_count }
+    module asm
+    period 86400
+    username admin
+    view-by asm_repev_request_type
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bfec296a9 {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { count }
+    module dns
+    order-on-page 1
+    period 86400
+    username admin
+    view-by dns_query_name
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bfec3439f {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { drop_count }
+    module dosl3
+    order-on-page 5
+    period 86400
+    username admin
+    view-by dosl3_attack_id
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bfec23777 {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { count }
+    module dosl7
+    order-on-page 1
+    period 86400
+    username admin
+    view-by vip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7bfec31858 {
+    cent-report-destination-type self
+    gui-pagecode _ov_summary
+    metrics { errors }
+    module network
+    order-on-page 4
+    period 86400
+    username admin
+    view-by fw_error_reason
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bff7beba4 {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm_http
+    order-on-page 1
+    period 86400
+    username admin
+    view-by psm_http_violation
+    widget-type 4
+}
+analytics gui-widget /Common/uwid56a7bff7c35db {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm_http
+    order-on-page 2
+    period 86400
+    username admin
+    view-by psm_http_ip
+    widget-type 2
+}
+analytics gui-widget /Common/uwid56a7bff7c702e {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm_http
+    order-on-page 3
+    period 86400
+    username admin
+    view-by psm_http_action
+    widget-type 2
+}
+analytics gui-widget /Common/uwid56a7bff7cabdc {
+    cent-report-destination-type self
+    drilldown-entities { psm_protocol_type }
+    drilldown-values { FTP }
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm
+    order-on-page 4
+    period 86400
+    username admin
+    view-by psm_request_type
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bff7ce513 {
+    cent-report-destination-type self
+    drilldown-entities { psm_protocol_type }
+    drilldown-values { FTP }
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm
+    order-on-page 5
+    period 86400
+    username admin
+    view-by violation
+    widget-type 4
+}
+analytics gui-widget /Common/uwid56a7bff7d1b9d {
+    cent-report-destination-type self
+    drilldown-entities { psm_protocol_type }
+    drilldown-values { SMTP }
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm
+    order-on-page 6
+    period 86400
+    username admin
+    view-by psm_request_type
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bff7d521d {
+    cent-report-destination-type self
+    drilldown-entities { psm_protocol_type }
+    drilldown-values { SMTP }
+    gui-pagecode _ov_psm
+    metrics { count }
+    module psm
+    order-on-page 7
+    period 86400
+    username admin
+    view-by violation
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bff7d8906 {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module dns
+    order-on-page 8
+    period 86400
+    username admin
+    view-by dns_vip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7bff7dbff6 {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module dns
+    order-on-page 9
+    period 86400
+    username admin
+    view-by dns_attack_type
+    widget-type 4
+}
+analytics gui-widget /Common/uwid56a7bff7df754 {
+    cent-report-destination-type self
+    gui-pagecode _ov_psm
+    metrics { count }
+    module dns
+    order-on-page 10
+    period 86400
+    username admin
+    view-by dns_vip
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7bff7e2f95 {
+    gui-pagecode _ov_psm
+    metrics { __ }
+    module _______xxx___
+    username admin
+    view-by __
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c000a3544 {
+    gui-pagecode network
+    metrics { __ }
+    module _______xxx___
+    username admin
+    view-by __
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c0006c990 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    period 86400
+    username admin
+    view-by acl_enforced_rule_src_ip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c0007bf12 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { errors }
+    module network
+    order-on-page 3
+    period 86400
+    username admin
+    view-by fw_src_ip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c0008b138 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    period 86400
+    username admin
+    view-by acl_enforced_rule_context
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7c0008f85c {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 1
+    period 86400
+    username admin
+    view-by acl_enforced_rule
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7c0009b71e {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { errors }
+    module network
+    order-on-page 4
+    period 86400
+    username admin
+    view-by fw_error_reason
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7c0009f59e {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 5
+    period 86400
+    username admin
+    view-by acl_mgmt_rule
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7c00070c52 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 1
+    period 86400
+    username admin
+    view-by acl_staged_rule_src_ip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c00075c5c {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 2
+    period 86400
+    username admin
+    view-by acl_mgmt_rule_src_ip
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c00093a7d {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 2
+    period 86400
+    username admin
+    view-by acl_staged_rule_context
+    widget-type 3
+}
+analytics gui-widget /Common/uwid56a7c00081497 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 4
+    period 86400
+    username admin
+    view-by acl_enforced_application
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c00086450 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 5
+    period 86400
+    username admin
+    view-by acl_staged_application
+    widget-type 1
+}
+analytics gui-widget /Common/uwid56a7c00097950 {
+    cent-report-destination-type self
+    gui-pagecode network
+    metrics { acl_matches }
+    module network
+    order-on-page 3
+    period 86400
+    username admin
+    view-by acl_staged_rule
+    widget-type 3
+}
+apm report default-report {
+    report-name sessionReports/sessionSummary
+    user /Common/admin
+}
+ltm default-node-monitor {
+    rule none
+}
+ltm node /Common/webserver {
+    address 172.16.60.101
+    monitor /Common/none 
+}
+ltm pool /Common/mypool {
+    members {
+        /Common/webserver:80 {
+            address 172.16.60.101
+        }
+    }
+}
+ltm pool /Common/ssh_pool {
+    members {
+        /Common/webserver:22 {
+            address 172.16.60.101
+        }
+    }
+}
+ltm rule /Common/nsh_classifier {
+    proc ip_to_int {ip} {
+    set res 0
+    set octets [split $ip .]
+    foreach val $octets byte {16777216 65536 256 1} {
+        set res [ expr { $res } +  ( $val * $byte)]
+    }
+    if { $res > 2147483648} {
+        set res [ expr $res - ( 2 * 2147483648)]
+
+    }
+    return $res
+}
+
+when CLIENT_ACCEPTED {
+  set client_addr [IP::remote_addr]
+  set sfc [class match -value $client_addr equals "client_dg"]
+
+  log local0. " CLIENT_ACCEPTED: [IP::remote_addr] -> $sfc "
+
+  if {$sfc eq ""} {
+     set sfc_flag 0
+     log local0. " CLIENT_ACCEPTED:  set sfc 0 "
+  } else {
+     set sfc_flag $sfc
+    log local0. " CLIENT_ACCEPTED:  set sfc $sfc" 
+  }
+
+  if {$sfc_flag != 0} {
+    nexthop latest de:ad:be:ef:04:02
+
+    log local0. " CLIENT_ACCEPTED: sending to de:ad:be:ef:04:02  "
+  }
+
+}
+when LB_SELECTED {
+ log local0. " LB_SELECTED:  scf_flag $sfc_flag "
+
+ if {$sfc_flag != 0} {
+  set pathid $sfc
+
+  set pathindex 255
+  set egress_classify_ip [ call ip_to_int "172.16.20.200" ]
+  set tunid 1
+
+  NSH::path_id serverside_egress $pathid
+  NSH::service_index serverside_egress $pathindex
+  NSH::context 1 serverside_egress $egress_classify_ip
+  NSH::context 2 serverside_egress $tunid
+
+  log local0. " sending with pathid:$pathid , index:$pathindex, egress_classify_ip: $egress_classify_ip , tunid:$tunid" 
+ }  
+}
+
+when CLIENT_DATA {
+    log local0. "CLIENT DATA received  ip_src=[IP::client_addr] l4_src=[UDP::client_port] ip_prot=[IP::protocol] ip_dst=[IP::server_addr]  l4_dst=[UDP::server_port] "
+}
+
+when SERVER_DATA {
+    log local0.  "SERVER DATA received  ip_src=[IP::client_addr] l4_src=[UDP::client_port] ip_prot=[IP::protocol] ip_dst=[IP::server_addr]  l4_dst=[UDP::server_port] "
+}
+}
+ltm rule /Common/nsh_sfc_proxy {
+    proc ip_to_int {ip} {
+    set res 0
+    set octets [split $ip .]
+    foreach val $octets byte {16777216 65536 256 1} {
+        set res [ expr { $res } +  ( $val * $byte)]
+    }
+    if { $res > 2147483648} {
+        set res [ expr $res - ( 2 * 2147483648)]
+
+    }
+    return $res
+}
+
+when LB_SELECTED {
+  log local0. " LB_SELECTED - nsh-sfc-proxy "
+  log local0. " server NSH path_id -> [NSH::path_id] "
+
+  set pathid [expr { [NSH::path_id] +1 }]
+  set pathindex 255
+  set ctx_1 [NSH::context 1]
+  set ctx_2 [NSH::context 2]
+
+  NSH::path_id clientside_egress $pathid
+  NSH::service_index clientside_egress $pathindex
+  NSH::context 1 clientside_egress $ctx_1
+  NSH::context 2 clientside_egress $ctx_2
+
+  log local0. " client NSH path_id -> [NSH::path_id] "
+  log local0. " client NSH path_index -> [NSH::service_index] "
+  log local0. " client NSH context 1 -> [NSH::context 1] "
+  log local0. " client NSH context 2 -> [NSH::context 2] "
+
+  log local0. "SFC-proxy-reverse LB_SELECTED: set clientside_egress pathid:$pathid, index:$pathindex,and context header "
+
+}
+}
+ltm rule /Common/nsh_test {
+    when CLIENT_ACCEPTED {
+    NSH::path_id serverside_egress 15
+    NSH::service_index serverside_egress 255
+    nexthop lastest 172.16.20.5
+}
+}
+ltm rule /Common/test {
+    when CLIENT_ACCEPTED {
+  log local0. "NSH classification iRule..."
+  set pathid 2010
+  NSH::path_id serverside_egress $pathid
+  node 172.16.20.5
+  nexthop nsh-tun2 172.16.20.5
+}
+}
+ltm virtual /Common/VServer {
+    destination /Common/0.0.0.0:80
+    mask any
+    pool /Common/mypool
+    profiles {
+        /Common/fastL4 { }
+    }
+    rules {
+        /Common/nsh_classifier
+    }
+    source 0.0.0.0/0
+    translate-address enabled
+    translate-port disabled
+    vlans {
+        /Common/external
+    }
+    vlans-enabled
+}
+ltm virtual /Common/decap-tunnel {
+    destination /Common/0.0.0.0:0
+    ip-forward
+    mask any
+    profiles {
+        /Common/fastL4 { }
+    }
+    rules {
+        /Common/nsh_sfc_proxy
+    }
+    source 0.0.0.0/0
+    translate-address disabled
+    translate-port disabled
+    vlans {
+        /Common/latest
+    }
+    vlans-enabled
+}
+ltm virtual /Common/ssh_server {
+    destination /Common/0.0.0.0:22
+    mask any
+    pool /Common/ssh_pool
+    profiles {
+        /Common/fastL4 { }
+    }
+    rules {
+        /Common/nsh_classifier
+    }
+    source 0.0.0.0/0
+    translate-address enabled
+    translate-port disabled
+    vlans {
+        /Common/external
+    }
+    vlans-enabled
+}
+ltm virtual-address /Common/0.0.0.0 {
+    address any
+    arp disabled
+    icmp-echo disabled
+    mask any
+    traffic-group /Common/traffic-group-1
+}
+ltm virtual-address /Common/172.16.20.101 {
+    address 172.16.20.101
+    arp enabled
+    icmp-echo disabled
+    mask 255.255.255.255
+    traffic-group /Common/traffic-group-1
+}
+ltm virtual-address /Common/172.16.60.101 {
+    address 172.16.60.101
+    arp enabled
+    icmp-echo enabled
+    mask 255.255.255.255
+    traffic-group /Common/traffic-group-1
+}
+ltm virtual-address /Common/172.16.60.200 {
+    address 172.16.60.200
+    arp enabled
+    icmp-echo enabled
+    mask 255.255.255.255
+    traffic-group /Common/traffic-group-1
+}
+ltm data-group internal /Common/client_dg {
+    records {
+        172.16.40.102/32 {
+            data 43
+        }
+        172.16.40.103/32 {
+            data 45
+        }
+    }
+    type ip
+}
+net route /Common/default {
+    gw 172.16.20.5
+    network default
+}
+net ipsec ike-daemon /Common/ikedaemon {
+    log-publisher /Common/default-ipsec-log-publisher
+}
+pem global-settings analytics { }
+security dos udp-portlist /Common/dos-udp-portlist {
+    entries {
+        entry1 {
+            match-direction both
+            port-number 53
+        }
+    }
+    list-type exclude-listed-ports
+}
+security firewall config-change-log {
+    log-publisher /Common/local-db-publisher
+}
+sys ecm cloud-provider /Common/aws-ec2 {
+    description "The aws-ec2 parameters"
+    property-template {
+        account { }
+        availability-zone {
+            valid-values { a b c d }
+        }
+        instance-type {
+            valid-values { t2.micro t2.small t2.medium m3.medium m3.large m3.xlarge m3.2xlarge c3.large c3.xlarge c3.2xlarge c3.4xlarge c3.8xlarge r3.large r3.xlarge r3.2xlarge r3.4xlarge r3.8xlarge }
+        }
+        region {
+            valid-values { us-east-1 us-west-1 us-west-2 sa-east-1 eu-west-1 eu-central-1 ap-southeast-2 ap-southeast-1 ap-northeast-1 }
+        }
+    }
+}
+sys ecm cloud-provider /Common/dnet {
+    description "The dnet parameters"
+}
+sys ecm cloud-provider /Common/vsphere {
+    description "The vsphere parameters"
+    property-template {
+        cloud-host-ip { }
+        dhcp-network-name { }
+        end-point-url { }
+        node-name { }
+    }
+}
+sys software update {
+    auto-check enabled
+    auto-phonehome enabled
+    frequency weekly
+}
+wom endpoint-discovery { }
