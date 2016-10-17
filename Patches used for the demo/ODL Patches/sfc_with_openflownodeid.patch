@@ -1,0 +1,42 @@
+diff --git a/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/SfcOvsUtil.java b/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/SfcOvsUtil.java
+index d58de49..53fb624 100644
+--- a/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/SfcOvsUtil.java
++++ b/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/SfcOvsUtil.java
+@@ -406,7 +406,20 @@ public class SfcOvsUtil {
+     }
+ 
+     public static ServiceFunctionForwarder augmentSffWithOpenFlowNodeId(ServiceFunctionForwarder sff) {
+-        String ofNodeId = SfcOvsUtil.getOpenFlowNodeIdForSff(sff);
++    	String ofNodeId = null;
++        // Check if its an service-function-forwarder-ovs augmentation
++        // if it is, then return;
++        SffOvsBridgeAugmentation ovsSff = sff.getAugmentation(SffOvsBridgeAugmentation.class);
++        if (ovsSff != null) {
++            if (ovsSff.getOvsBridge() != null) {
++            	ofNodeId = ovsSff.getOvsBridge().getOpenflowNodeId();
++            	if (ofNodeId != null ) { 
++            		return sff;
++            	}
++            }
++        }
++        
++        ofNodeId = SfcOvsUtil.getOpenFlowNodeIdForSff(sff);
+ 
+         if (ofNodeId != null) {
+             SffOvsBridgeAugmentationBuilder sffOvsBrAugBuilder;
+diff --git a/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/api/SfcSffToOvsMappingAPI.java b/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/api/SfcSffToOvsMappingAPI.java
+index 6a834a0..7820722 100644
+--- a/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/api/SfcSffToOvsMappingAPI.java
++++ b/sfc-ovs/src/main/java/org/opendaylight/sfc/sfc_ovs/provider/api/SfcSffToOvsMappingAPI.java
+@@ -84,6 +84,11 @@ public class SfcSffToOvsMappingAPI {
+             if (serviceForwarderOvsBridge != null) {
+                 ovsdbBridgeBuilder.setBridgeName(new OvsdbBridgeName(serviceForwarderOvsBridge.getBridgeName()));
+                 ovsdbBridgeBuilder.setBridgeUuid(serviceForwarderOvsBridge.getUuid());
++                String openflowNodeId = serviceForwarderOvsBridge.getOpenflowNodeId();
++                if (openflowNodeId != null ) {
++                    LOG.info("openflowNodeId is set on SFF {}", serviceFunctionForwarder.getName());
++                	return null;
++                }
+             } else {
+                 LOG.info("Cannot build OvsdbBridgeAugmentation. Missing OVS Bridge augmentation on SFF {}", serviceFunctionForwarder.getName());
+                 return null;
