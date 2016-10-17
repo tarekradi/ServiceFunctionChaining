@@ -1,0 +1,60 @@
+proc ip_to_int {ip} {
+    set res 0
+    set octets [split $ip .]
+    foreach val $octets byte {16777216 65536 256 1} {
+        set res [ expr { $res } +  ( $val * $byte)]
+    }
+    if { $res > 2147483648} {
+        set res [ expr $res - ( 2 * 2147483648)]
+
+    }
+    return $res
+}
+
+when CLIENT_ACCEPTED {
+  set client_addr [IP::remote_addr]
+  set sfc [class match -value $client_addr equals "client_dg"]
+
+  log local0. " CLIENT_ACCEPTED: [IP::remote_addr] -> $sfc "
+
+  if {$sfc eq ""} {
+     set sfc_flag 0
+     log local0. " CLIENT_ACCEPTED:  set sfc 0 "
+  } else {
+     set sfc_flag $sfc
+    log local0. " CLIENT_ACCEPTED:  set sfc $sfc" 
+  }
+
+  if {$sfc_flag != 0} {
+    nexthop latest de:ad:be:ef:04:02
+
+    log local0. " CLIENT_ACCEPTED: sending to de:ad:be:ef:04:02  "
+  }
+
+}
+when LB_SELECTED {
+ log local0. " LB_SELECTED:  scf_flag $sfc_flag "
+
+ if {$sfc_flag != 0} {
+  set pathid $sfc
+
+  set pathindex 255
+  set egress_classify_ip [ call ip_to_int "172.16.20.200" ]
+  set tunid 1
+
+  NSH::path_id serverside_egress $pathid
+  NSH::service_index serverside_egress $pathindex
+  NSH::context 1 serverside_egress $egress_classify_ip
+  NSH::context 2 serverside_egress $tunid
+
+  log local0. " sending with pathid:$pathid , index:$pathindex, egress_classify_ip: $egress_classify_ip , tunid:$tunid" 
+ }  
+}
+
+when CLIENT_DATA {
+    log local0. "CLIENT DATA received  ip_src=[IP::client_addr] l4_src=[UDP::client_port] ip_prot=[IP::protocol] ip_dst=[IP::server_addr]  l4_dst=[UDP::server_port] "
+}
+
+when SERVER_DATA {
+    log local0.  "SERVER DATA received  ip_src=[IP::client_addr] l4_src=[UDP::client_port] ip_prot=[IP::protocol] ip_dst=[IP::server_addr]  l4_dst=[UDP::server_port] "
+}

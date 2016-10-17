@@ -1,0 +1,22 @@
+#
+# URL Filtering iRule Sample
+#
+# F5 Networks
+# (C) 2005, All Rights Reserved.
+#
+when RULE_INIT {
+  log local0.info "--init--"
+  set static::http_hdr "<HTML><Head><TITLE>URL Filtering Service</TITLE></HEAD><BODY>\n"
+  set static::http_tail "<p>Best Reguards,<br><br>Your Frendly ISP<br></BODY></HTML>"
+}
+when HTTP_REQUEST {
+  log local0.info "Test for [HTTP::uri]"
+  if { [class match [HTTP::uri] ends_with URL_Block_List] } {
+    log local0.info "Match on [HTTP::uri]"
+    set out $static::http_hdr
+    append out "<h2>Blocked URL</h2>\nThis URL is on the 'Blocked Website List', and is not available.\n<br>"
+    append out $static::http_tail
+    HTTP::respond 200 content $out
+    return ok
+  }
+}

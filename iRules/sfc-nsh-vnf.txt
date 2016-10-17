@@ -1,0 +1,29 @@
+when CLIENT_ACCEPTED {
+  nexthop vxlan-tunnel 172.16.50.5
+  set ctx1 [ NSH::context 1 ]
+  set ctx2 [ NSH::context 2 ] 
+  log local0. " Ctx1 $ctx1 Ctx2 $ctx2"
+}
+
+when LB_SELECTED {
+  set client_egress_pathid [ expr { [NSH::path_id] + 1 }]
+  set server_egress_pathid  [NSH::path_id] 
+  set server_egress_index [ expr { [NSH::service_index] -1 }]
+
+  log local0. "client_egress_pathid $client_egress_pathid server_egress_pathid $server_egress_pathid server_egress_index $server_egress_index"
+
+  NSH::path_id clientside_egress $client_egress_pathid
+  NSH::context 1 clientside_egress $ctx1
+  NSH::context 2 clientside_egress $ctx2
+
+  NSH::service_index serverside_egress $server_egress_index
+  NSH::path_id serverside_egress $server_egress_pathid
+  NSH::context 1 serverside_egress $ctx1
+  NSH::context 2 serverside_egress $ctx2
+}
+
+when SERVER_DATA {
+  set clientside_egress_index [ expr {  [NSH::service_index] - 1 }]
+  NSH::service_index clientside_egress $clientside_egress_index
+  log local0. "clientside_egress_index $clientside_egress_index"
+}

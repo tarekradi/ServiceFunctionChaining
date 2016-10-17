@@ -1,0 +1,35 @@
+proc ip_to_int {ip} {
+    set res 0
+    set octets [split $ip .]
+    foreach val $octets byte {16777216 65536 256 1} {
+        set res [ expr { $res } +  ( $val * $byte)]
+    }
+    if { $res > 2147483648} {
+        set res [ expr $res - ( 2 * 2147483648)]
+
+    }
+    return $res
+}
+
+when LB_SELECTED {
+  log local0. " LB_SELECTED - nsh-sfc-proxy "
+  log local0. " server NSH path_id -> [NSH::path_id] "
+
+  set pathid [expr { [NSH::path_id] +1 }]
+  set pathindex 255
+  set ctx_1 [NSH::context 1]
+  set ctx_2 [NSH::context 2]
+
+  NSH::path_id clientside_egress $pathid
+  NSH::service_index clientside_egress $pathindex
+  NSH::context 1 clientside_egress $ctx_1
+  NSH::context 2 clientside_egress $ctx_2
+
+  log local0. " client NSH path_id -> [NSH::path_id] "
+  log local0. " client NSH path_index -> [NSH::service_index] "
+  log local0. " client NSH context 1 -> [NSH::context 1] "
+  log local0. " client NSH context 2 -> [NSH::context 2] "
+
+  log local0. "SFC-proxy-reverse LB_SELECTED: set clientside_egress pathid:$pathid, index:$pathindex,and context header "
+
+}
